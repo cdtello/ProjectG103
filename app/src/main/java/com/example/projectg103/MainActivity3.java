@@ -28,7 +28,7 @@ public class MainActivity3 extends AppCompatActivity {
         imgDetail.setImageResource(intent.getIntExtra("image",R.drawable.ic_launcher_background));
         tvNameDetail.setText(intent.getStringExtra("name"));
         tvDescriptionDetail.setText(intent.getStringExtra("description"));
-        tvPriceDetail.setText(intent.getStringExtra("price"));
+        tvPriceDetail.setText(String.valueOf(intent.getIntExtra("price", 0)));
 
 
         btnReturn.setOnClickListener(new View.OnClickListener() {
