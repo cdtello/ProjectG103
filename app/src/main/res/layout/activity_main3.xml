@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textProduct"
+            android:id="@+id/tvNameDetail"
             android:textSize="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -25,13 +25,26 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/imgDetail"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
+            <TextView
+                android:id="@+id/tvDescriptionDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvPriceDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:text="TextView" />
+
             <Button
-                android:id="@+id/btnProduct"
+                android:id="@+id/btnReturn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Button" />

@@ -1,47 +1,47 @@
 package com.example.projectg103.Entidades;
 
 public class Producto {
-    private int imagen;
-    private String nombre;
-    private String descripcion;
-    private int precio;
+    private int image;
+    private String name;
+    private String description;
+    private int price;
 
-    public Producto(int imagen, String nombre, String descripcion, int precio) {
-        this.imagen = imagen;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
+    public Producto(int image, String name, String description, int price) {
+        this.image = image;
+        this.name = name;
+        this.description = description;
+        this.price = price;
     }
 
-    public int getImagen() {
-        return imagen;
+    public int getImage() {
+        return image;
     }
 
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
+    public void setImage(int image) {
+        this.image = image;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getPrecio() {
-        return precio;
+    public int getPrice() {
+        return price;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
