@@ -1,51 +1,63 @@
 package com.example.projectg103;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.projectg103.Adaptadores.ProductoAdapter;
+import com.example.projectg103.DB.DBHelper;
 import com.example.projectg103.Entidades.Producto;
+import com.example.projectg103.Servicios.ProductoService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
-    ListView listViewProducts;
-    ProductoAdapter productoAdapter;
-    ArrayList<Producto> arrayProductos;
+    private DBHelper dbHelper;
+    private ProductoService productoService;
+    private ListView listViewProducts;
+    private ProductoAdapter productoAdapter;
+    private ArrayList<Producto> arrayProductos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
-        listViewProducts = (ListView) findViewById(R.id.listViewProducts);
         arrayProductos = new ArrayList<>();
-        Producto producto1 = new Producto(R.drawable.producto1,"Producto 1", "Descripcion 1",1000);
-        Producto producto2 = new Producto(R.drawable.producto2,"Producto 2", "Descripcion 2",2000);
-        Producto producto3 = new Producto(R.drawable.producto3,"Producto 3", "Descripcion 3",3000);
-        Producto producto4 = new Producto(R.drawable.producto1,"Producto 4", "Descripcion 4",4000);
-        Producto producto5 = new Producto(R.drawable.producto2,"Producto 5", "Descripcion 5",5000);
-        Producto producto6 = new Producto(R.drawable.producto3,"Producto 6", "Descripcion 6",6000);
-        Producto producto7 = new Producto(R.drawable.producto1,"Producto 7", "Descripcion 7",7000);
-        Producto producto8 = new Producto(R.drawable.producto2,"Producto 8", "Descripcion 8",8000);
-        Producto producto9 = new Producto(R.drawable.producto3,"Producto 9", "Descripcion 9",9000);
-
-        arrayProductos.add(producto1);
-        arrayProductos.add(producto2);
-        arrayProductos.add(producto3);
-        arrayProductos.add(producto4);
-        arrayProductos.add(producto5);
-        arrayProductos.add(producto6);
-        arrayProductos.add(producto7);
-        arrayProductos.add(producto8);
-        arrayProductos.add(producto9);
-
+        try {
+            dbHelper = new DBHelper(this);
+            productoService = new ProductoService();
+            arrayProductos = productoService.cursorToArray(dbHelper.getProducts());
+        }catch (Exception e){
+            Log.e("DB", e.toString());
+        }
+        listViewProducts = (ListView) findViewById(R.id.listViewProducts);
         productoAdapter = new ProductoAdapter(this, arrayProductos);
-
         listViewProducts.setAdapter(productoAdapter);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add:
+                Intent intent = new Intent(getApplicationContext(), FormProduct.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
