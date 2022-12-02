@@ -2,6 +2,8 @@ package com.example.projectg103.Adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +54,8 @@ public class ProductoAdapter extends BaseAdapter {
         TextView tvDescriptionProduct = (TextView) view.findViewById(R.id.tvDescriptionProduct);
         TextView tvPriceProduct = (TextView) view.findViewById(R.id.tvPriceProduct);
 
-
-        imgProduct.setImageResource(producto.getImage());
+        Bitmap bitmap = BitmapFactory.decodeByteArray(producto.getImage(), 0, producto.getImage().length);
+        imgProduct.setImageBitmap(bitmap);
         tvNameProduct.setText(producto.getName());
         tvDescriptionProduct.setText(producto.getDescription());
         tvPriceProduct.setText(String.valueOf(producto.getPrice()));
@@ -65,7 +67,7 @@ public class ProductoAdapter extends BaseAdapter {
                 intent.putExtra("name", producto.getName());
                 intent.putExtra("description", producto.getDescription());
                 intent.putExtra("price", producto.getPrice());
-                intent.putExtra("image", producto.getImage());
+                intent.putExtra("id", producto.getId());
                 context.startActivity(intent);
             }
         });

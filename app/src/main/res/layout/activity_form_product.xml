@@ -21,11 +21,38 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editIdFormProduct"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btnGetFormProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Consultar" />
+
+            <Button
+                android:id="@+id/btnDeleteFormProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar" />
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/imgFormProduct"
             android:layout_width="350dp"
             android:layout_height="350dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/ic_launcher_background" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,6 +116,6 @@
             android:id="@+id/btnFormProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Insertar" />
     </LinearLayout>
 </LinearLayout>
