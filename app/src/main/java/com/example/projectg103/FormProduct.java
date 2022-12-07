@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EdgeEffect;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.projectg103.DB.DBFirebase;
 import com.example.projectg103.DB.DBHelper;
 import com.example.projectg103.Entidades.Producto;
 import com.example.projectg103.Servicios.ProductoService;
@@ -28,10 +30,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class FormProduct extends AppCompatActivity {
-    private Button btnFormProduct, btnGetFormProduct, btnDeleteFormProduct;
+    private Button btnFormProduct, btnGetFormProduct, btnDeleteFormProduct, btnUpdateFormProduct;
     private EditText editNameFormProduct, editDescriptionFormProduct, editPriceFormProduct, editIdFormProduct;
     private ImageView imgFormProduct;
     private DBHelper dbHelper;
+    private DBFirebase dbFirebase;
     private ActivityResultLauncher<String> content;
     private ProductoService productoService;
 
@@ -40,6 +43,7 @@ public class FormProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_product);
 
+        btnUpdateFormProduct = (Button) findViewById(R.id.btnUpdateFormProduct);
         btnGetFormProduct = (Button) findViewById(R.id.btnGetFormProduct);
         btnDeleteFormProduct = (Button) findViewById(R.id.btnDeleteFormProduct);
         btnFormProduct = (Button) findViewById(R.id.btnFormProduct);
@@ -49,8 +53,23 @@ public class FormProduct extends AppCompatActivity {
         editIdFormProduct = (EditText) findViewById(R.id.editIdFormProduct);
         imgFormProduct = (ImageView) findViewById(R.id.imgFormProduct);
 
+        editPriceFormProduct.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    Toast.makeText(getApplicationContext(), "Hello Enter", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
         try {
             dbHelper = new DBHelper(this);
+            dbFirebase = new DBFirebase();
             productoService = new ProductoService();
             content = registerForActivityResult(
                     new ActivityResultContracts.GetContent(),
@@ -83,11 +102,14 @@ public class FormProduct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                dbHelper.insertProduct(
+                //dbHelper.insertProduct(
+                dbFirebase.insertProduct(
                         editNameFormProduct.getText().toString(),
                         editDescriptionFormProduct.getText().toString(),
                         editPriceFormProduct.getText().toString(),
                         productoService.imageViewToByte(imgFormProduct));
+
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
                 startActivity(intent);
             }
@@ -120,7 +142,32 @@ public class FormProduct extends AppCompatActivity {
             public void onClick(View view) {
                 String id = editIdFormProduct.getText().toString().trim();
                 dbHelper.deleteProductById(id);
+                clean();
             }
         });
+
+        btnUpdateFormProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id = editIdFormProduct.getText().toString().trim();
+                if(id.compareTo("")!=0){
+                    dbHelper.updateProduct(
+                            id,
+                            editNameFormProduct.getText().toString(),
+                            editDescriptionFormProduct.getText().toString(),
+                            editPriceFormProduct.getText().toString(),
+                            productoService.imageViewToByte(imgFormProduct)
+                    );
+                    clean();
+                }
+            }
+        });
+    }
+
+    public void clean(){
+        editNameFormProduct.setText("");
+        editDescriptionFormProduct.setText("");
+        editPriceFormProduct.setText("");
+        imgFormProduct.setImageResource(R.drawable.ic_launcher_background);
     }
 }

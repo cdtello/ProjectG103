@@ -14,6 +14,13 @@ public class Producto {
         this.description = description;
         this.price = price;
     }
+
+    public Producto(String name, String description, int price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     public int getId(){return id;}
 
     public byte[] getImage() {
