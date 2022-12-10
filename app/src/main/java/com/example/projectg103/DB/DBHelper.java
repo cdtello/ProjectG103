@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
+import com.example.projectg103.Entidades.Producto;
+
 public class DBHelper extends SQLiteOpenHelper {
     private SQLiteDatabase sqLiteDatabase;
 
@@ -18,11 +20,11 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL( "CREATE TABLE PRODUCTS("+
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    "id TEXT PRIMARY KEY,"+
                     "name VARCHAR,"+
-                    "description VARCHAR,"+
+                    "description TEXT,"+
                     "price VARCHAR,"+
-                    "image BLOB"+
+                    "image TEXT"+
                     ")");
     }
 
@@ -32,15 +34,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //METODOS CRUD
-    public void insertProduct(String name, String description, String price, byte[] image){
-        String sql = "INSERT INTO PRODUCTS VALUES(null, ?, ?, ?, ?)";
-        SQLiteStatement statement =sqLiteDatabase.compileStatement(sql);
+    public void insertProduct(Producto producto){
+        String sql = "INSERT INTO PRODUCTS VALUES(?, ?, ?, ?, ?)";
+        SQLiteStatement statement = sqLiteDatabase.compileStatement(sql);
         statement.clearBindings();
 
-        statement.bindString(1, name);
-        statement.bindString(2, description);
-        statement.bindString(3, price);
-        statement.bindBlob(4, image);
+        statement.bindString(1, producto.getId());
+        statement.bindString(2, producto.getName());
+        statement.bindString(3, producto.getDescription());
+        statement.bindString(4, String.valueOf(producto.getPrice()));
+        statement.bindString(5, producto.getImage());
 
         statement.executeInsert();
     }

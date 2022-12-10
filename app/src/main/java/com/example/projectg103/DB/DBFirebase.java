@@ -32,30 +32,16 @@ public class DBFirebase {
         this.db =  FirebaseFirestore.getInstance();
     }
 
-    public void insertProduct(String name, String description, String price, byte[] image){
-        // Create a new user with a first and last name
-        Map<String, Object> product = new HashMap<>();
-        product.put("name", name);
-        product.put("description", description);
-        product.put("price", price);
-        //product.put("image", image.);
-
+    public void insertProduct(Producto producto){
+        Map<String, Object> prod = new HashMap<>();
+        prod.put("id", producto.getId());
+        prod.put("name", producto.getName());
+        prod.put("description", producto.getDescription());
+        prod.put("price", producto.getPrice());
+        prod.put("image", producto.getImage());
 
         // Add a new document with a generated ID
-        db.collection("products")
-                .add(product)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+        db.collection("products").add(prod);
     }
 
     public void getProducts(ProductoAdapter productoAdapter, ArrayList<Producto> list){
@@ -68,9 +54,11 @@ public class DBFirebase {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Producto producto = new Producto(
+                                        document.getData().get("id").toString(),
                                         document.getData().get("name").toString(),
                                         document.getData().get("description").toString(),
-                                        Integer.parseInt(document.getData().get("price").toString())
+                                        Integer.parseInt(document.getData().get("price").toString()),
+                                        document.getData().get("image").toString()
                                 );
                                 list.add(producto);
                             }
@@ -100,19 +88,8 @@ public class DBFirebase {
                 .update(
                         "name",producto.getName(),
                         "description",producto.getDescription(),
-                        "price", producto.getPrice()
-                )
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //cualquier cosa
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("MainActivity", "Error",e);
-                    }
-                });
+                        "price", producto.getPrice(),
+                        "image", producto.getImage()
+                );
     }
 }

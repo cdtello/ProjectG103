@@ -41,8 +41,9 @@ public class MainActivity3 extends AppCompatActivity {
         String id = String.valueOf(intent.getIntExtra("id",0));
         ArrayList<Producto> productDB = productoService.cursorToArray(dbHelper.getProductById(id));
         Producto producto = productDB.get(0);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(producto.getImage(), 0, producto.getImage().length);
-        imgDetail.setImageBitmap(bitmap);
+
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(producto.getImage(), 0, producto.getImage().length);
+        //imgDetail.setImageBitmap(bitmap);
 
 
         tvNameDetail.setText(intent.getStringExtra("name"));

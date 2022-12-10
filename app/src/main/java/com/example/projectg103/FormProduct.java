@@ -102,12 +102,14 @@ public class FormProduct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //dbHelper.insertProduct(
-                dbFirebase.insertProduct(
+                Producto producto = new Producto(
                         editNameFormProduct.getText().toString(),
                         editDescriptionFormProduct.getText().toString(),
-                        editPriceFormProduct.getText().toString(),
-                        productoService.imageViewToByte(imgFormProduct));
+                        Integer.parseInt(editPriceFormProduct.getText().toString()),
+                        ""
+                );
+                dbHelper.insertProduct(producto);
+                //dbFirebase.insertProduct(producto);
 
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
@@ -128,8 +130,8 @@ public class FormProduct extends AppCompatActivity {
                         editNameFormProduct.setText(producto.getName());
                         editDescriptionFormProduct.setText(producto.getDescription());
                         editPriceFormProduct.setText(String.valueOf(producto.getPrice()));
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(producto.getImage(), 0, producto.getImage().length);
-                        imgFormProduct.setImageBitmap(bitmap);
+                        //Bitmap bitmap = BitmapFactory.decodeByteArray(producto.getImage(), 0, producto.getImage().length);
+                        //imgFormProduct.setImageBitmap(bitmap);
                     }else {
                         Toast.makeText(getApplicationContext(),"No existe",Toast.LENGTH_SHORT).show();
                     }

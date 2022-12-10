@@ -38,7 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
             dbHelper = new DBHelper(this);
             dbFirebase = new DBFirebase();
             productoService = new ProductoService();
-            //arrayProductos = productoService.cursorToArray(dbHelper.getProducts());
+            arrayProductos = productoService.cursorToArray(dbHelper.getProducts());
 
         }catch (Exception e){
             Log.e("DB", e.toString());

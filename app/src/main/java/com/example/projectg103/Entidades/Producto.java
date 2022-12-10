@@ -1,13 +1,15 @@
 package com.example.projectg103.Entidades;
 
+import java.util.UUID;
+
 public class Producto {
-    private int id;
-    private byte[] image;
+    private String id;
     private String name;
     private String description;
     private int price;
+    private String image;
 
-    public Producto(int id, byte[] image, String name, String description, int price) {
+    public Producto(String id, String name, String description, int price, String image) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -15,19 +17,21 @@ public class Producto {
         this.price = price;
     }
 
-    public Producto(String name, String description, int price) {
+    public Producto(String name, String description, int price, String image) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.price = price;
+        this.image = image;;
     }
 
-    public int getId(){return id;}
+    public String getId(){return id;}
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

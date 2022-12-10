@@ -17,11 +17,11 @@ public class ProductoService {
         if(cursor.getCount() != 0){
             while (cursor.moveToNext()){
                 Producto producto = new Producto(
-                        cursor.getInt(0),
-                        cursor.getBlob(4),
+                        cursor.getString(0),
                         cursor.getString(1),
                         cursor.getString(2),
-                        Integer.parseInt(cursor.getString(3))
+                        Integer.parseInt(cursor.getString(3)),
+                        cursor.getString(4)
                 );
                 list.add(producto);
             }
