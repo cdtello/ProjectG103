@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.projectg103.DB.DBHelper;
 import com.example.projectg103.Entidades.Producto;
 import com.example.projectg103.Servicios.ProductoService;
@@ -38,18 +39,14 @@ public class MainActivity3 extends AppCompatActivity {
         productoService = new ProductoService();
 
         Intent intent = getIntent();
-        String id = String.valueOf(intent.getIntExtra("id",0));
-        ArrayList<Producto> productDB = productoService.cursorToArray(dbHelper.getProductById(id));
-        Producto producto = productDB.get(0);
-
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(producto.getImage(), 0, producto.getImage().length);
-        //imgDetail.setImageBitmap(bitmap);
-
 
         tvNameDetail.setText(intent.getStringExtra("name"));
         tvDescriptionDetail.setText(intent.getStringExtra("description"));
         tvPriceDetail.setText(String.valueOf(intent.getIntExtra("price", 0)));
-
+        Glide.with(MainActivity3.this)
+                .load(intent.getStringExtra("image"))
+                .override(500, 500)
+                .into(imgDetail);
 
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,6 +24,12 @@
                 android:orderInCategory="100"
                 app:showAsAction="ifRoom"
                 />
+            <item
+                android:id="@+id/action_map"
+                android:title="Mapa"
+                android:orderInCategory="100"
+                app:showAsAction="ifRoom"
+                />
         </menu>
     </item>
 </menu>

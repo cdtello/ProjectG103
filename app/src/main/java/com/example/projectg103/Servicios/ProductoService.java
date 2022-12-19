@@ -21,7 +21,9 @@ public class ProductoService {
                         cursor.getString(1),
                         cursor.getString(2),
                         Integer.parseInt(cursor.getString(3)),
-                        cursor.getString(4)
+                        cursor.getString(4),
+                        Double.parseDouble(cursor.getString(5)),
+                        Double.parseDouble(cursor.getString(6))
                 );
                 list.add(producto);
             }
